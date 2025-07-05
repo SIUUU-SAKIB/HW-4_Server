@@ -18,7 +18,7 @@ require('dotenv').config();
 const PORT = 3000;
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield mongoose_1.default.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.y1e7y.mongodb.net/advanced-note-app?retryWrites=true&w=majority&appName=Cluster0`);
+        yield mongoose_1.default.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.y1e7y.mongodb.net/book-application?retryWrites=true&w=majority&appName=Cluster0`);
         console.log(`Connected to mongoose 😊😍`);
         app_1.default.listen(PORT, () => {
             console.log(`Server is running on localhost:${PORT}`);
@@ -27,8 +27,5 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     catch (error) {
         console.log(error);
     }
-});
-app_1.default.get(`/`, (req, res) => {
-    res.send(`HELLO ASSINGMENT-4`);
 });
 main();

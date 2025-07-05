@@ -9,5 +9,9 @@ const bookSchema = (0, mongoose_1.model)("books", new mongoose_1.Schema({
             "DRAMA", "HISTORY", "FICTION", "SCIENCE", "NON-FICTION", "ADVENTURE"
         ]
     },
-    isbn: { type: Number, required: true, unique: true }
-}));
+    isbn: { type: Number, required: true, unique: true },
+    description: { type: String, required: true },
+    copies: { min: 0, required: true, type: Number },
+    available: { type: Boolean, default: true },
+}, { timestamps: true, versionKey: false }));
+exports.default = bookSchema;
