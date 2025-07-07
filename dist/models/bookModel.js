@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const bookSchema = (0, mongoose_1.model)("books", new mongoose_1.Schema({
+    image: { type: String },
     title: { type: String, required: true, trim: true },
     author: { type: String, required: true, trim: true },
     genre: {

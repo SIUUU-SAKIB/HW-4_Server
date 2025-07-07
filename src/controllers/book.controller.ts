@@ -60,6 +60,15 @@ routerController.patch("/edit-book/:id", async (req: Request, res: Response) => 
     }
 })
 
+
+routerController.patch("/link", async (req: Request, res: Response) => {
+    try{
+     const updateBook = await bookSchema.updateMany({}, {$set:{image:""}})
+     res.status(200).send(updateBook)
+    }catch(error) {
+        res.send(error)
+    }
+})
 // *DELETE THE BOOK
 
 routerController.delete('/delete-book/:id', async (req: Request, res: Response) => {

@@ -71,6 +71,15 @@ exports.routerController.patch("/edit-book/:id", (req, res) => __awaiter(void 0,
         res.status(500).json({ message: `Error while updating the book, ${error}` });
     }
 }));
+exports.routerController.patch("/link", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const updateBook = yield bookModel_1.default.updateMany({}, { $set: { image: "" } });
+        res.status(200).send(updateBook);
+    }
+    catch (error) {
+        res.send(error);
+    }
+}));
 // *DELETE THE BOOK
 exports.routerController.delete('/delete-book/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;

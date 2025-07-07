@@ -1,6 +1,7 @@
 export type Genre = "DRAMA" | "HISTORY" | "FICTION" | "SCIENCE" | "NON-FICTION" | "ADVENTURE"
 export interface IBook {
-    title:string,
+  image: string,
+  title: string,
   author: string
   genre: Genre,
   isbn: number
