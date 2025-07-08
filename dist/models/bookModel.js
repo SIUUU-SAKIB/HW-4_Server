@@ -7,9 +7,9 @@ const bookSchema = (0, mongoose_1.model)("books", new mongoose_1.Schema({
     title: { type: String, required: true, trim: true },
     author: { type: String, required: true, trim: true },
     genre: {
-        type: String, enum: [
-            "DRAMA", "HISTORY", "FICTION", "SCIENCE", "NON-FICTION", "ADVENTURE"
-        ]
+        type: String,
+        enum: ["Drama", "History", "Fiction", "Science", "Non-Fiction", "Adventure"],
+        required: true
     },
     isbn: { type: Number, required: true, unique: true },
     description: { type: String, required: true },
