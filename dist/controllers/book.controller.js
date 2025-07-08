@@ -71,21 +71,17 @@ exports.routerController.patch("/edit-book/:id", (req, res) => __awaiter(void 0,
         res.status(500).json({ message: `Error while updating the book, ${error}` });
     }
 }));
-exports.routerController.patch("/link", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const updateBook = yield bookModel_1.default.updateMany({}, { $set: { image: "" } });
-        res.status(200).send(updateBook);
-    }
-    catch (error) {
-        res.send(error);
-    }
-}));
 // *DELETE THE BOOK
 exports.routerController.delete('/delete-book/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         const deletedBook = yield bookModel_1.default.findByIdAndDelete(id);
-        !deletedBook ? res.status(404).json({ status: false, message: "Book not found" }) : res.status(200).json({ status: true, message: "Successfully deleted the book" });
+        if (!deletedBook) {
+            res.status(404).json({ status: false, message: "Book not found" });
+        }
+        else {
+            res.status(200).json({ status: true, message: "Successfully deleted the book" });
+        }
     }
     catch (error) {
         res.status(500).json({ message: `Failed to delete the book, ${error}` });

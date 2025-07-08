@@ -3,11 +3,12 @@ import { IBook } from "../types/bookInterface";
 
 const bookSchema = model("books", new Schema<IBook>({
     image:{type:String},
+    published:{type: Number, required:true, trim:true},
     title: { type: String, required: true, trim: true },
     author: { type: String, required: true, trim: true },
     genre: {
         type: String, enum: [
-            "DRAMA", "HISTORY", "FICTION", "SCIENCE", "NON-FICTION", "ADVENTURE"
+            "Drama", "History", "Fiction", "Science", "Non-Fiction", "Adventure"
         ]
     },
     isbn: { type: Number, required: true, unique: true },

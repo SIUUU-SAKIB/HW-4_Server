@@ -1,4 +1,4 @@
-export type Genre = "DRAMA" | "HISTORY" | "FICTION" | "SCIENCE" | "NON-FICTION" | "ADVENTURE"
+export type Genre = "Drama" | "History" | "Fiction" | "Science" | "Non-Fiction" | "Adventure"
 export interface IBook {
   image: string,
   title: string,
@@ -7,5 +7,5 @@ export interface IBook {
   isbn: number
   description: string
   copies: number
-  available: boolean
+  available: boolean, published: number
 }

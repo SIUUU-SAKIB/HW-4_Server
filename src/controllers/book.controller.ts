@@ -27,6 +27,7 @@ routerController.get(`/books/:id`, async (req: Request, res: Response) => {
         res.status(500).json({ status: false, message: "Something went wrong," + error })
     }
 })
+
 // *POST BOOKS
 
 routerController.post(`/create-book`, async (req: Request, res: Response) => {
@@ -61,22 +62,17 @@ routerController.patch("/edit-book/:id", async (req: Request, res: Response) => 
 })
 
 
-routerController.patch("/link", async (req: Request, res: Response) => {
-    try{
-     const updateBook = await bookSchema.updateMany({}, {$set:{image:""}})
-     res.status(200).send(updateBook)
-    }catch(error) {
-        res.send(error)
-    }
-})
 // *DELETE THE BOOK
 
 routerController.delete('/delete-book/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
         const deletedBook = await bookSchema.findByIdAndDelete(id)
-
-        !deletedBook ? res.status(404).json({ status: false, message: "Book not found" }) : res.status(200).json({ status: true, message: "Successfully deleted the book" })
+        if (!deletedBook) {
+            res.status(404).json({ status: false, message: "Book not found" })
+        } else {
+            res.status(200).json({ status: true, message: "Successfully deleted the book" })
+        }
     } catch (error: any) {
         res.status(500).json({ message: `Failed to delete the book, ${error}` })
     }
