@@ -113,3 +113,22 @@ exports.routerController.post("/borrow", (req, res) => __awaiter(void 0, void 0,
         res.status(500).json({ message: "Error borrowing book", error: error.message });
     }
 }));
+exports.routerController.get(`/borrowed-books`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const borrowedBooks = yield borrowModel_1.default.find();
+        res.status(200).json({ message: "Successfully got the borrowed books", borrowedBooks });
+    }
+    catch (error) {
+        res.status(500).json({ message: "Failed to get the borrowed books", error });
+    }
+}));
+exports.routerController.get(`/borrow-book/:id`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const borrowedBooks = yield bookModel_1.default.findById(id);
+        res.status(200).json({ message: "Successfully got the borrowed books", borrowedBooks });
+    }
+    catch (error) {
+        res.status(500).json({ message: "Failed to get the book", error });
+    }
+}));

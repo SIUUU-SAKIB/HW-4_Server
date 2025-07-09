@@ -54,7 +54,7 @@ routerController.patch("/edit-book/:id", async (req: Request, res: Response) => 
             new: true
         })
 
-// 01711299054
+        // 01711299054
 
         !updateBook ? res.status(404).json({ status: false, message: "Book Not Found" }) : res.status(200).json({ status: true, message: "Successfully updated the book", updateBook })
 
@@ -112,3 +112,23 @@ routerController.post("/borrow", async (req: Request, res: Response) => {
     }
 })
 
+routerController.get(`/borrowed-books`, async (req: Request, res: Response) => {
+    try {
+        const borrowedBooks = await BorrowModel.find()
+        res.status(200).json({ message: "Successfully got the borrowed books", borrowedBooks })
+
+    } catch (error: any) {
+        res.status(500).json({ message: "Failed to get the borrowed books", error })
+    }
+})
+
+routerController.get(`/borrow-book/:id`, async(req:Request, res:Response) => {
+    const {id} = req.params
+  try {
+        const borrowedBooks = await bookSchema.findById(id)
+        res.status(200).json({ message: "Successfully got the borrowed books", borrowedBooks })
+
+    } catch (error: any) {
+        res.status(500).json({ message: "Failed to get the book", error })
+    }   
+})
