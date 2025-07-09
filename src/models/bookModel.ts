@@ -8,7 +8,7 @@ const bookSchema = model("books", new Schema<IBook>({
     author: { type: String, required: true, trim: true },
     genre: {
         type: String,
-        enum: ["Drama", "History", "Fiction", "Science", "Non-Fiction", "Adventure"],
+        enum: ["Drama", "History", "Fiction", "Science", "Non-Fiction", "Adventure", "Biography", "Others"],
         required: true
     },
     isbn: { type: Number, required: true, unique: true },
