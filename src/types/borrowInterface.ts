@@ -5,6 +5,7 @@ export interface IBorrow {
     quantity: number,
     borrowName: string,
     borrowdate?: Date,
-    dueDate: Date
+    dueDate: Date,
+    isbn:number
 
 }

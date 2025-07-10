@@ -142,7 +142,7 @@ routerController.get("/borrow-summary", async (req: Request, res: Response) => {
             {
                 $group: {
                     _id: '$book',
-                    totalBorrowed: { $sum: '$quantity' }
+                    totalBorrowed: { $sum: '$quantity' },
                 }
             },
             {
@@ -162,12 +162,12 @@ routerController.get("/borrow-summary", async (req: Request, res: Response) => {
                     bookId: '$bookDetails._id',
                     title: '$bookDetails.title',
                     author: '$bookDetails.author',
-                    isbn:'bookDetails.isbn',
+                    isbn:'$bookDetails.isbn',
                     totalBorrowed: 1
                 }
             }
         ]);
-
+        
         res.status(200).json(summary);
     } catch (err: any) {
         res.status(500).json({ message: 'Failed to get summary', error: err.message });

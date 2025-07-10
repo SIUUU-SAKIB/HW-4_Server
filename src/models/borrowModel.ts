@@ -15,7 +15,7 @@ import mongoose from "mongoose";
     borrowDate: {
         type: Date,
         default: Date.now
-    }
+    }, isbn:{type:Number}
 }) 
 const BorrowModel = mongoose.model("Borrow", borrowSchema);
 

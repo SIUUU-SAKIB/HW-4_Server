@@ -19,7 +19,7 @@ const borrowSchema = new mongoose_1.default.Schema({
     borrowDate: {
         type: Date,
         default: Date.now
-    }
+    }, isbn: { type: Number }
 });
 const BorrowModel = mongoose_1.default.model("Borrow", borrowSchema);
 exports.default = BorrowModel;

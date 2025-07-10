@@ -138,7 +138,7 @@ exports.routerController.get("/borrow-summary", (req, res) => __awaiter(void 0, 
             {
                 $group: {
                     _id: '$book',
-                    totalBorrowed: { $sum: '$quantity' }
+                    totalBorrowed: { $sum: '$quantity' },
                 }
             },
             {
@@ -158,7 +158,7 @@ exports.routerController.get("/borrow-summary", (req, res) => __awaiter(void 0, 
                     bookId: '$bookDetails._id',
                     title: '$bookDetails.title',
                     author: '$bookDetails.author',
-                    isbn: 'bookDetails.isbn',
+                    isbn: '$bookDetails.isbn',
                     totalBorrowed: 1
                 }
             }
