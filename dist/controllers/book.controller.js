@@ -158,6 +158,7 @@ exports.routerController.get("/borrow-summary", (req, res) => __awaiter(void 0, 
                     bookId: '$bookDetails._id',
                     title: '$bookDetails.title',
                     author: '$bookDetails.author',
+                    isbn: 'bookDetails.isbn',
                     totalBorrowed: 1
                 }
             }

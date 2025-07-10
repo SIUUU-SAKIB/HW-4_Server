@@ -162,6 +162,7 @@ routerController.get("/borrow-summary", async (req: Request, res: Response) => {
                     bookId: '$bookDetails._id',
                     title: '$bookDetails.title',
                     author: '$bookDetails.author',
+                    isbn:'bookDetails.isbn',
                     totalBorrowed: 1
                 }
             }
