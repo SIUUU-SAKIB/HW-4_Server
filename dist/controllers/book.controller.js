@@ -31,6 +31,19 @@ exports.routerController.get('/books', (req, res) => __awaiter(void 0, void 0, v
         res.status(500).json({ message: error.message });
     }
 }));
+// * GET BOOK PAGINATION
+exports.routerController.get('/books/page', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 8;
+        const skip = (page - 1) * limit;
+        const books = yield bookModel_1.default.find().skip(skip).limit(limit);
+        res.status(200).json(books);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}));
 // *GET BOOK BY IDENTIFICATION
 exports.routerController.get(`/books/:id`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;

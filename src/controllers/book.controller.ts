@@ -11,7 +11,21 @@ routerController.get(`/`, (req, res) => {
 // *GET ALL BOOKS
 routerController.get('/books', async (req: Request, res: Response) => {
     try {
+
         const books = await bookSchema.find()
+        res.status(200).json(books)
+    } catch (error: any) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+// * GET BOOK PAGINATION
+routerController.get('/books/page', async (req: Request, res: Response) => {
+    try {
+        const page = parseInt(req.query.page as string) || 1
+        const limit = parseInt(req.query.limit as string) || 8
+        const skip = (page - 1) * limit;
+        const books = await bookSchema.find().skip(skip).limit(limit)
         res.status(200).json(books)
     } catch (error: any) {
         res.status(500).json({ message: error.message })
@@ -162,12 +176,12 @@ routerController.get("/borrow-summary", async (req: Request, res: Response) => {
                     bookId: '$bookDetails._id',
                     title: '$bookDetails.title',
                     author: '$bookDetails.author',
-                    isbn:'$bookDetails.isbn',
+                    isbn: '$bookDetails.isbn',
                     totalBorrowed: 1
                 }
             }
         ]);
-        
+
         res.status(200).json(summary);
     } catch (err: any) {
         res.status(500).json({ message: 'Failed to get summary', error: err.message });
