@@ -132,3 +132,39 @@ exports.routerController.get(`/borrow-book/:id`, (req, res) => __awaiter(void 0,
         res.status(500).json({ message: "Failed to get the book", error });
     }
 }));
+exports.routerController.get("/borrow-summary", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const summary = yield borrowModel_1.default.aggregate([
+            {
+                $group: {
+                    _id: '$book',
+                    totalBorrowed: { $sum: '$quantity' }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: '_id',
+                    foreignField: '_id',
+                    as: 'bookDetails'
+                }
+            },
+            {
+                $unwind: '$bookDetails'
+            },
+            {
+                $project: {
+                    _id: 0,
+                    bookId: '$bookDetails._id',
+                    title: '$bookDetails.title',
+                    author: '$bookDetails.author',
+                    totalBorrowed: 1
+                }
+            }
+        ]);
+        res.status(200).json(summary);
+    }
+    catch (err) {
+        res.status(500).json({ message: 'Failed to get summary', error: err.message });
+    }
+}));

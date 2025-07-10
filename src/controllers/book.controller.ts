@@ -114,6 +114,7 @@ routerController.post("/borrow", async (req: Request, res: Response) => {
 
 routerController.get(`/borrowed-books`, async (req: Request, res: Response) => {
     try {
+
         const borrowedBooks = await BorrowModel.find()
         res.status(200).json({ message: "Successfully got the borrowed books", borrowedBooks })
 
@@ -122,13 +123,53 @@ routerController.get(`/borrowed-books`, async (req: Request, res: Response) => {
     }
 })
 
-routerController.get(`/borrow-book/:id`, async(req:Request, res:Response) => {
-    const {id} = req.params
-  try {
+routerController.get(`/borrow-book/:id`, async (req: Request, res: Response) => {
+    const { id } = req.params
+    try {
         const borrowedBooks = await bookSchema.findById(id)
         res.status(200).json({ message: "Successfully got the borrowed books", borrowedBooks })
 
     } catch (error: any) {
         res.status(500).json({ message: "Failed to get the book", error })
-    }   
+    }
 })
+
+
+
+routerController.get("/borrow-summary", async (req: Request, res: Response) => {
+    try {
+        const summary = await BorrowModel.aggregate([
+            {
+                $group: {
+                    _id: '$book',
+                    totalBorrowed: { $sum: '$quantity' }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'books',
+                    localField: '_id',
+                    foreignField: '_id',
+                    as: 'bookDetails'
+                }
+            },
+            {
+                $unwind: '$bookDetails'
+            },
+            {
+                $project: {
+                    _id: 0,
+                    bookId: '$bookDetails._id',
+                    title: '$bookDetails.title',
+                    author: '$bookDetails.author',
+                    totalBorrowed: 1
+                }
+            }
+        ]);
+
+        res.status(200).json(summary);
+    } catch (err: any) {
+        res.status(500).json({ message: 'Failed to get summary', error: err.message });
+    }
+});
+
