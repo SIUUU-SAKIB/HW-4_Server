@@ -24,7 +24,7 @@ exports.routerController.get(`/`, (req, res) => {
 // *GET ALL BOOKS
 exports.routerController.get('/books', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const books = yield bookModel_1.default.find();
+        const books = yield bookModel_1.default.find().sort({ updatedAt: -1 });
         res.status(200).json(books);
     }
     catch (error) {

@@ -12,7 +12,7 @@ routerController.get(`/`, (req, res) => {
 routerController.get('/books', async (req: Request, res: Response) => {
     try {
 
-        const books = await bookSchema.find()
+        const books = await bookSchema.find().sort({updatedAt:-1})
         res.status(200).json(books)
     } catch (error: any) {
         res.status(500).json({ message: error.message })
