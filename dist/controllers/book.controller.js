@@ -39,6 +39,7 @@ exports.routerController.get('/books/page', (req, res) => __awaiter(void 0, void
         const skip = (page - 1) * limit;
         const books = yield bookModel_1.default.find().skip(skip).limit(limit);
         const total = yield bookModel_1.default.countDocuments();
+        console.log(total);
         res.status(200).json({ books, total });
     }
     catch (error) {
@@ -124,7 +125,7 @@ exports.routerController.post("/borrow", (req, res) => __awaiter(void 0, void 0,
         res.status(201).json({ message: "Book borrowed successfully", borrow });
     }
     catch (error) {
-        res.status(500).json({ message: "Error borrowing book", error: error.message });
+        res.status(500).json({ message: "Error borrowing book", error });
     }
 }));
 exports.routerController.get(`/borrowed-books`, (req, res) => __awaiter(void 0, void 0, void 0, function* () {

@@ -27,6 +27,7 @@ routerController.get('/books/page', async (req: Request, res: Response) => {
         const skip = (page - 1) * limit;
         const books = await bookSchema.find().skip(skip).limit(limit)
         const total = await bookSchema.countDocuments()
+        console.log(total)
         res.status(200).json({books, total})
     } catch (error: any) {
         res.status(500).json({ message: error.message })
@@ -122,8 +123,8 @@ routerController.post("/borrow", async (req: Request, res: Response) => {
 
         res.status(201).json({ message: "Book borrowed successfully", borrow })
 
-    } catch (error: any) {
-        res.status(500).json({ message: "Error borrowing book", error: error.message })
+    } catch (error) {
+        res.status(500).json({ message: "Error borrowing book", error })
     }
 })
 
