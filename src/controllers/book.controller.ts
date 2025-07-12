@@ -26,7 +26,8 @@ routerController.get('/books/page', async (req: Request, res: Response) => {
         const limit = parseInt(req.query.limit as string) || 8
         const skip = (page - 1) * limit;
         const books = await bookSchema.find().skip(skip).limit(limit)
-        res.status(200).json(books)
+        const total = await bookSchema.countDocuments()
+        res.status(200).json({books, total})
     } catch (error: any) {
         res.status(500).json({ message: error.message })
     }
