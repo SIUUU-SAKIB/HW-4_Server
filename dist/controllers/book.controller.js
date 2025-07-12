@@ -38,7 +38,8 @@ exports.routerController.get('/books/page', (req, res) => __awaiter(void 0, void
         const limit = parseInt(req.query.limit) || 8;
         const skip = (page - 1) * limit;
         const books = yield bookModel_1.default.find().skip(skip).limit(limit);
-        res.status(200).json(books);
+        const total = yield bookModel_1.default.countDocuments();
+        res.status(200).json({ books, total });
     }
     catch (error) {
         res.status(500).json({ message: error.message });
